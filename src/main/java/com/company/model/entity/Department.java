@@ -41,11 +41,11 @@ public class Department implements Serializable {
 	private Integer memberSize;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "manager_id") // lưu ý
+	@JoinColumn(name = "manager_id")
 	private Account manager;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "creator_id", referencedColumnName = "id") // lưu ý
+	@JoinColumn(name = "creator_id", referencedColumnName = "id")
 	private Account creator;
 
 	@Column(name = "created_date_time")
@@ -54,7 +54,7 @@ public class Department implements Serializable {
 	private Date createdDateTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "modifier_id", referencedColumnName = "id") // lưu ý
+	@JoinColumn(name = "modifier_id", referencedColumnName = "id")
 	private Account modifier;
 
 	@Column(name = "updated_date_time")

@@ -57,7 +57,7 @@ public class Account implements Serializable {
 	private String password;
 
 	@Column(name = "`status`", nullable = false)
-	@Enumerated(EnumType.ORDINAL) // 0: Block, 1: Active
+	@Enumerated(EnumType.ORDINAL)
 	private Status status;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -65,7 +65,7 @@ public class Account implements Serializable {
 	private Department department;
 
 	@Column(name = "`role`", nullable = false)
-	@Enumerated(EnumType.STRING) // ENUM('ADMIN', 'EMPLOYEE','MANAGER') DEFAULT 'EMPLOYEE',
+	@Enumerated(EnumType.STRING)
 	private Role role;
 
 	@ManyToOne(fetch = FetchType.LAZY)
