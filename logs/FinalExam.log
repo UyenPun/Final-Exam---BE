@@ -1,0 +1,380 @@
+2024-10-20 17:10:30 [background-preinit] INFO  o.h.v.i.u.Version                                  - HV000001: Hibernate Validator 8.0.1.Final 
+2024-10-20 17:10:30 [restartedMain] INFO  c.c.Application                                    - Starting Application using Java 17.0.12 with PID 8816 (D:\Java Be\4. Java Advanced\Lesson_16_Final Exam\Code\FinalBE\target\classes started by Admin in D:\Java Be\4. Java Advanced\Lesson_16_Final Exam\Code\FinalBE) 
+2024-10-20 17:10:30 [restartedMain] INFO  c.c.Application                                    - The following 1 profile is active: "dev" 
+2024-10-20 17:10:30 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor    - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable 
+2024-10-20 17:10:30 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor    - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG' 
+2024-10-20 17:10:31 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Bootstrapping Spring Data JPA repositories in DEFAULT mode. 
+2024-10-20 17:10:31 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Finished Spring Data repository scanning in 93 ms. Found 3 JPA repository interfaces. 
+2024-10-20 17:10:32 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat initialized with port(s): 8080 (http) 
+2024-10-20 17:10:32 [restartedMain] INFO  o.a.c.h.Http11NioProtocol                          - Initializing ProtocolHandler ["http-nio-8080"] 
+2024-10-20 17:10:32 [restartedMain] INFO  o.a.c.c.StandardService                            - Starting service [Tomcat] 
+2024-10-20 17:10:32 [restartedMain] INFO  o.a.c.c.StandardEngine                             - Starting Servlet engine: [Apache Tomcat/10.1.13] 
+2024-10-20 17:10:32 [restartedMain] INFO  o.a.c.c.C.[.[.[/]                                  - Initializing Spring embedded WebApplicationContext 
+2024-10-20 17:10:32 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext     - Root WebApplicationContext: initialization completed in 2081 ms 
+2024-10-20 17:10:32 [restartedMain] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Starting... 
+2024-10-20 17:10:32 [restartedMain] INFO  c.z.h.p.HikariPool                                 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@74dd7504 
+2024-10-20 17:10:32 [restartedMain] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Start completed. 
+2024-10-20 17:10:33 [restartedMain] INFO  o.h.j.i.u.LogHelper                                - HHH000204: Processing PersistenceUnitInfo [name: default] 
+2024-10-20 17:10:33 [restartedMain] INFO  o.h.Version                                        - HHH000412: Hibernate ORM core version 6.2.9.Final 
+2024-10-20 17:10:33 [restartedMain] INFO  o.h.c.Environment                                  - HHH000406: Using bytecode reflection optimizer 
+2024-10-20 17:10:33 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator                  - HHH000021: Bytecode provider name : bytebuddy 
+2024-10-20 17:10:33 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo                - No LoadTimeWeaver setup: ignoring JPA class transformer 
+2024-10-20 17:10:34 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator                  - HHH000021: Bytecode provider name : bytebuddy 
+2024-10-20 17:10:35 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator                 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform] 
+2024-10-20 17:10:35 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2024-10-20 17:10:35 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2024-10-20 17:10:36 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer                 - LiveReload server is running on port 35729 
+2024-10-20 17:10:36 [restartedMain] INFO  o.a.c.h.Http11NioProtocol                          - Starting ProtocolHandler ["http-nio-8080"] 
+2024-10-20 17:10:36 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat started on port(s): 8080 (http) with context path '' 
+2024-10-20 17:10:36 [restartedMain] INFO  c.c.Application                                    - Started Application in 6.92 seconds (process running for 8.628) 
+2024-10-20 17:10:43 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/]                                  - Initializing Spring DispatcherServlet 'dispatcherServlet' 
+2024-10-20 17:10:43 [http-nio-8080-exec-1] INFO  o.s.w.s.DispatcherServlet                          - Initializing Servlet 'dispatcherServlet' 
+2024-10-20 17:10:43 [http-nio-8080-exec-1] INFO  o.s.w.s.DispatcherServlet                          - Completed initialization in 2 ms 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        d1_0.id,
+        d1_0.created_date_time,
+        d1_0.creator_id,
+        d1_0.manager_id,
+        d1_0.member_size,
+        d1_0.modifier_id,
+        d1_0.`name`,
+        d1_0.updated_date_time 
+    from
+        `Department` d1_0 limit ?,
+        ? 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        count(d1_0.id) 
+    from
+        `Department` d1_0 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:10:44 [http-nio-8080-exec-1] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:10:44 [http-nio-8080-exec-2] WARN  o.s.w.s.PageNotFound                               - No mapping for GET /favicon.ico 
+2024-10-20 17:10:44 [http-nio-8080-exec-2] WARN  o.s.w.s.PageNotFound                               - No endpoint GET /favicon.ico. 
+2024-10-20 17:10:44 [http-nio-8080-exec-2] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver        - Resolved [org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /favicon.ico.] 
+2024-10-20 17:14:29 [http-nio-8080-exec-5] DEBUG o.h.SQL                                            - 
+    select
+        d1_0.id,
+        d1_0.created_date_time,
+        d1_0.creator_id,
+        d1_0.manager_id,
+        d1_0.member_size,
+        d1_0.modifier_id,
+        d1_0.`name`,
+        d1_0.updated_date_time 
+    from
+        `Department` d1_0 limit ?,
+        ? 
+2024-10-20 17:14:29 [http-nio-8080-exec-5] DEBUG o.h.SQL                                            - 
+    select
+        count(d1_0.id) 
+    from
+        `Department` d1_0 
+2024-10-20 17:14:29 [http-nio-8080-exec-5] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:14:29 [http-nio-8080-exec-5] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:14:29 [http-nio-8080-exec-5] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:14:29 [http-nio-8080-exec-5] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:14:29 [http-nio-8080-exec-5] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:14:29 [http-nio-8080-exec-5] DEBUG o.h.SQL                                            - 
+    select
+        a1_0.id,
+        a1_0.created_date_time,
+        a1_0.creator_id,
+        a1_0.department_id,
+        a1_0.email,
+        a1_0.firstname,
+        concat(a1_0.firstname,' ',a1_0.lastname) ,
+        a1_0.lastname,
+        a1_0.modifier_id,
+        a1_0.`password`,
+        a1_0.`role`,
+        a1_0.`status`,
+        a1_0.updated_date_time,
+        a1_0.username 
+    from
+        `Account` a1_0 
+    where
+        a1_0.id=? 
+2024-10-20 17:14:47 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2024-10-20 17:14:47 [RMI TCP Connection(11)-127.0.0.1] INFO  o.a.c.h.Http11NioProtocol                          - Pausing ProtocolHandler ["http-nio-8080"] 
+2024-10-20 17:14:47 [RMI TCP Connection(11)-127.0.0.1] INFO  o.a.c.c.StandardService                            - Stopping service [Tomcat] 
+2024-10-20 17:14:47 [RMI TCP Connection(11)-127.0.0.1] INFO  o.a.c.c.C.[.[.[/]                                  - Destroying Spring FrameworkServlet 'dispatcherServlet' 
+2024-10-20 17:14:47 [RMI TCP Connection(11)-127.0.0.1] INFO  o.a.c.h.Http11NioProtocol                          - Stopping ProtocolHandler ["http-nio-8080"] 
+2024-10-20 17:14:47 [RMI TCP Connection(11)-127.0.0.1] INFO  o.a.c.h.Http11NioProtocol                          - Destroying ProtocolHandler ["http-nio-8080"] 
+2024-10-20 17:14:47 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Closing JPA EntityManagerFactory for persistence unit 'default' 
+2024-10-20 17:14:47 [RMI TCP Connection(11)-127.0.0.1] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Shutdown initiated... 
+2024-10-20 17:14:47 [RMI TCP Connection(11)-127.0.0.1] INFO  c.z.h.HikariDataSource                             - HikariPool-1 - Shutdown completed. 
