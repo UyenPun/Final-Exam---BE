@@ -15,16 +15,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "`Department`")
+@NoArgsConstructor
+@SuperBuilder
 public class Department implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -65,4 +68,10 @@ public class Department implements Serializable {
 	@OneToMany(mappedBy = "department")
 	private List<Account> accounts;
 
+	@PrePersist
+	public void setDefault() {
+		if (memberSize == null) {
+			memberSize = 0;
+		}
+	}
 }

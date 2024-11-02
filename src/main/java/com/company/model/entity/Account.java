@@ -24,11 +24,13 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Data
 @NoArgsConstructor
 @Entity
 @Table(name = "`Account`")
+@SuperBuilder
 public class Account implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -67,12 +69,12 @@ public class Account implements Serializable {
 	@Column(name = "`role`", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private Role role;
-
+	
 	@Column(name = "last_change_password_date_time")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
 	private Date lastChangePasswordDateTime;
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "creator_id", referencedColumnName = "id")
 	private Account creator;

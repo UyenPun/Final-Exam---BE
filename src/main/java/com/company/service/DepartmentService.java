@@ -9,6 +9,7 @@ import com.company.model.dto.department.AccountDTO;
 import com.company.model.dto.department.DepartmentDTO;
 import com.company.model.dto.department.DepartmentDetailDTO;
 import com.company.model.form.department.AccountFilterForm;
+import com.company.model.form.department.CreatingDepartmentForm;
 import com.company.model.form.department.DepartmentFilterForm;
 
 public interface DepartmentService {
@@ -21,4 +22,8 @@ public interface DepartmentService {
 	Page<AccountDTO> getAllAccountsByDepartmentId(Integer departmentId, Pageable pageable, AccountFilterForm form);
 
 	void removeAccountsInDepartment(List<Integer> accountIds);
+
+	boolean isDepartmentExistsByName(String name);
+
+	void createDepartment(CreatingDepartmentForm form);
 }

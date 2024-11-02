@@ -7,4 +7,6 @@ import com.company.model.entity.Department;
 
 public interface IDepartmentRepository extends JpaRepository<Department, Integer>, JpaSpecificationExecutor<Department>{
 
+	boolean existsByName(String name);
+
 }

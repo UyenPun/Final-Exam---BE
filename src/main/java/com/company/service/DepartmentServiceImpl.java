@@ -18,6 +18,7 @@ import com.company.model.entity.Account;
 import com.company.model.entity.Account.Role;
 import com.company.model.entity.Department;
 import com.company.model.form.department.AccountFilterForm;
+import com.company.model.form.department.CreatingDepartmentForm;
 import com.company.model.form.department.DepartmentFilterForm;
 import com.company.model.specification.department.AccountSpecification;
 import com.company.model.specification.department.DepartmentSpecification;
@@ -25,6 +26,7 @@ import com.company.repository.IAccountRepository;
 import com.company.repository.IDepartmentRepository;
 
 @Service
+@Transactional
 public class DepartmentServiceImpl extends BaseService implements DepartmentService {
 
 	@Autowired
@@ -88,9 +90,6 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 			// update member_size & manager in department
 			Department department = account.getDepartment();
 			department.setMemberSize(department.getMemberSize() - 1);
-
-			// Nếu thằng bị xóa là 'MANAGER' thì phải remove manager_id bên bảng Department
-			// vì dưới dtb có trường này
 			if (account.getRole().equals(Role.MANAGER)) {
 				department.setManager(null);
 			}
@@ -105,6 +104,36 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 			account.setUpdatedDateTime(new Date());
 			accountRepository.save(account);
 		}
+	}
 
+	@Override
+	public boolean isDepartmentExistsByName(String name) {
+		return departmentRepository.existsByName(name);
+	}
+
+	// CREAT DEPARTMENT
+	@Override
+	public void createDepartment(CreatingDepartmentForm form) {
+		// create department trước
+		Department department = Department.builder().name(form.getName())
+				.manager(Account.builder().id(form.getManagerId()).build())
+				.creator(securityUtils.getCurrentAccountLogin()).createdDateTime(new Date())
+				.modifier(securityUtils.getCurrentAccountLogin()).updatedDateTime(new Date()).build();
+		Department entity = departmentRepository.save(department);
+
+		// add accounts to new department
+		// check có employee hay không -> có thì update
+		if (form.getEmployeeIds() != null && form.getEmployeeIds().size() > 0) {
+			accountRepository.updateDepartment(entity.getId(), form.getEmployeeIds());
+		}
+
+		// add manager vào department
+		Account manager = accountRepository.findById(form.getManagerId()).get();
+		manager.setRole(Role.MANAGER);
+		manager.setDepartment(entity);
+		accountRepository.save(manager);
+
+		// update member_size
+		department.setMemberSize(1 + (form.getEmployeeIds() == null ? 0 : form.getEmployeeIds().size()));
 	}
 }
