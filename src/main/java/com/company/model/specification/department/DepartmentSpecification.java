@@ -1,4 +1,4 @@
-package com.company.model.specification;
+package com.company.model.specification.department;
 
 import java.util.Date;
 

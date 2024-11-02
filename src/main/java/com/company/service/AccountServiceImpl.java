@@ -9,7 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.company.config.security.SecurityUtils;
+import com.company.model.dto.account.DepartmentDTO;
 import com.company.model.entity.Account;
+import com.company.model.entity.Department;
 import com.company.repository.IAccountRepository;
 
 @Service
@@ -59,5 +61,18 @@ public class AccountServiceImpl extends BaseService implements AccountService {
 		return passwordEncoder.matches(
 				oldPassword, 
 				securityUtils.getCurrentAccountLogin().getPassword());
+	}
+
+	@Override
+	public boolean isAccountExistsById(Integer id) {
+		return accountRepository.existsById(id);
+	}
+
+	@Override
+	public DepartmentDTO getDepartmentInfo() {
+		Account account = securityUtils.getCurrentAccountLogin();
+		Department department = account.getDepartment();
+		DepartmentDTO departmentDto = convertObjectToObject(department, DepartmentDTO.class);
+		return departmentDto;
 	}
 }
