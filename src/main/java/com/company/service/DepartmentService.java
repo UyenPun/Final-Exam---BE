@@ -11,6 +11,7 @@ import com.company.model.dto.department.DepartmentDetailDTO;
 import com.company.model.form.department.AccountFilterForm;
 import com.company.model.form.department.CreatingDepartmentForm;
 import com.company.model.form.department.DepartmentFilterForm;
+import com.company.model.form.department.UpdatingDepartmentForm;
 
 public interface DepartmentService {
 	Page<DepartmentDTO> getAllDepartments(Pageable pageable, DepartmentFilterForm form);
@@ -26,4 +27,6 @@ public interface DepartmentService {
 	boolean isDepartmentExistsByName(String name);
 
 	void createDepartment(CreatingDepartmentForm form);
+	
+	void updateDepartment(Integer departmentId, UpdatingDepartmentForm form);
 }

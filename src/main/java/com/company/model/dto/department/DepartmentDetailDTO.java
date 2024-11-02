@@ -11,7 +11,14 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class DepartmentDetailDTO extends DepartmentDTO {
 
-	// overide
+	private Integer memberSize;
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date createdDateTime;
+
+	// update
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date getCreatedDate() {
+		return createdDateTime;
+	}
 }
