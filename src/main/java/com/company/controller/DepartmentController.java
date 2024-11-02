@@ -25,6 +25,7 @@ import com.company.model.form.department.DepartmentFilterForm;
 import com.company.model.form.department.UpdatingDepartmentForm;
 import com.company.model.validation.account.AccountIdExists;
 import com.company.model.validation.department.DepartmentIdExists;
+import com.company.model.validation.department.DepartmentNoUser;
 import com.company.model.validation.interf.NameNotExistsGroup;
 import com.company.service.DepartmentService;
 
@@ -51,13 +52,11 @@ public class DepartmentController {
 		return departmentService.getAllDepartments(pageable, form);
 	}
 
-	// view detail
 	@GetMapping("/{id}")
 	public DepartmentDetailDTO getDepartmentById(@PathVariable(name = "id") @DepartmentIdExists Integer id) {
 		return departmentService.getDepartmentById(id);
 	}
 
-	// lấy Acc trong Department
 	@GetMapping("/{id}/accounts")
 	public Page<AccountDTO> getAllAccountsByDepartmentId(
 			@PathVariable(name = "id") @DepartmentIdExists Integer departmentId, Pageable pageable,
@@ -83,12 +82,11 @@ public class DepartmentController {
 		return "create successfully!";
 	}
 
-//	Update 
 	@PutMapping("/{id}")
 	public String updateDepartment(@PathVariable(name = "id") @DepartmentIdExists Integer departmentId,
 			@RequestBody @Valid UpdatingDepartmentForm form) {
 
-		// validate department name exists: tên không trùng với thằng cũ
+		// validate department name exists
 		if (!departmentService.getDepartmentById(departmentId).getName().equals(form.getName())) {
 			Set<ConstraintViolation<UpdatingDepartmentForm>> result = validator.validate(form,
 					NameNotExistsGroup.class);
@@ -101,5 +99,13 @@ public class DepartmentController {
 		departmentService.updateDepartment(departmentId, form);
 
 		return "update successfully!";
+	}
+
+	// Delete
+	@DeleteMapping("/{id}")
+	public String deleteDepartment(
+			@PathVariable(name = "id") @DepartmentIdExists @DepartmentNoUser Integer departmentId) {
+		departmentService.deleteDepartment(departmentId);
+		return "delete successfully!";
 	}
 }

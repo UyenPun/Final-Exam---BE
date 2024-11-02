@@ -2,6 +2,7 @@ package com.company.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -140,7 +141,6 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 	public void updateDepartment(Integer departmentId, UpdatingDepartmentForm form) {
 		Department department = departmentRepository.findById(departmentId).get();
 
-		// lấy thằng Manager cũ -> có thay đổi Manager hay ko
 		Account oldManager = department.getManager();
 		if (oldManager.getId() != form.getManagerId()) {
 			// update role of old manager
@@ -158,4 +158,21 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 		department.setUpdatedDateTime(new Date());
 		departmentRepository.save(department);
 	}
+
+	@Override
+	public boolean isDepartmentHasUser(Integer departmentId) {
+		Optional<Department> departmentOptional = departmentRepository.findById(departmentId);
+		if (departmentOptional.isEmpty()) {
+			return false;
+		}
+		Department department = departmentOptional.get();
+		return department.getMemberSize() != 0;
+	}
+
+	// Nếu không có phòng ban thì chỉ cần Delete đi
+	@Override
+	public void deleteDepartment(Integer departmentId) {
+		departmentRepository.deleteById(departmentId);
+	}
+
 }

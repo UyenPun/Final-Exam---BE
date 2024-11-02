@@ -29,4 +29,8 @@ public interface DepartmentService {
 	void createDepartment(CreatingDepartmentForm form);
 	
 	void updateDepartment(Integer departmentId, UpdatingDepartmentForm form);
+	
+	boolean isDepartmentHasUser(Integer departmentId);
+	
+	void deleteDepartment(Integer departmentId);
 }
