@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.company.config.security.SecurityUtils;
 import com.company.model.dto.account.AccountNoDepartmentDTO;
+import com.company.model.dto.account.ImportedAccountInfoDTO;
 import com.company.model.dto.department.DepartmentDTO;
 import com.company.model.entity.Account;
 import com.company.model.entity.Department;
@@ -97,6 +98,18 @@ public class AccountServiceImpl extends BaseService implements AccountService {
 
 		// convert entity to dto list
 		List<AccountNoDepartmentDTO> dtos = convertListObjectToListObject(entities, AccountNoDepartmentDTO.class);
+
+		return dtos;
+	}
+	
+	@Override
+	public List<ImportedAccountInfoDTO> getInfoAccountByUsername(List<String> usernames) {
+		
+		// get entity list
+		List<Account> entities = accountRepository.findByUsernameIn(usernames);
+		
+		// convert entity to dto list
+		List<ImportedAccountInfoDTO> dtos = convertListObjectToListObject(entities, ImportedAccountInfoDTO.class);
 
 		return dtos;
 	}

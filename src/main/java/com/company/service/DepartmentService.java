@@ -8,9 +8,11 @@ import org.springframework.data.domain.Pageable;
 import com.company.model.dto.department.AccountDTO;
 import com.company.model.dto.department.DepartmentDTO;
 import com.company.model.dto.department.DepartmentDetailDTO;
+import com.company.model.dto.department.DepartmentForFilterDTO;
 import com.company.model.form.department.AccountFilterForm;
 import com.company.model.form.department.CreatingDepartmentForm;
 import com.company.model.form.department.DepartmentFilterForm;
+import com.company.model.form.department.ImportedAccountIntoDepartmentForm;
 import com.company.model.form.department.UpdatingDepartmentForm;
 
 public interface DepartmentService {
@@ -33,4 +35,8 @@ public interface DepartmentService {
 	boolean isDepartmentHasUser(Integer departmentId);
 	
 	void deleteDepartment(Integer departmentId);
+	
+	List<DepartmentForFilterDTO> getAllDepartmentsForFilter();
+	
+	void importedAccountsIntoDepartment(Integer departmentId, ImportedAccountIntoDepartmentForm form);	
 }

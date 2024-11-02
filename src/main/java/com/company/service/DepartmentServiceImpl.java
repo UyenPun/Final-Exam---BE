@@ -15,12 +15,14 @@ import com.company.config.security.SecurityUtils;
 import com.company.model.dto.department.AccountDTO;
 import com.company.model.dto.department.DepartmentDTO;
 import com.company.model.dto.department.DepartmentDetailDTO;
+import com.company.model.dto.department.DepartmentForFilterDTO;
 import com.company.model.entity.Account;
 import com.company.model.entity.Account.Role;
 import com.company.model.entity.Department;
 import com.company.model.form.department.AccountFilterForm;
 import com.company.model.form.department.CreatingDepartmentForm;
 import com.company.model.form.department.DepartmentFilterForm;
+import com.company.model.form.department.ImportedAccountIntoDepartmentForm;
 import com.company.model.form.department.UpdatingDepartmentForm;
 import com.company.model.specification.department.AccountSpecification;
 import com.company.model.specification.department.DepartmentSpecification;
@@ -33,10 +35,10 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 
 	@Autowired
 	private IDepartmentRepository departmentRepository;
-
+	
 	@Autowired
 	private IAccountRepository accountRepository;
-
+	
 	@Autowired
 	private SecurityUtils securityUtils;
 
@@ -63,10 +65,10 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 	public DepartmentDetailDTO getDepartmentById(Integer id) {
 		// get entity
 		Department entity = departmentRepository.findById(id).get();
-
+		
 		// convert entity to dto
 		DepartmentDetailDTO dto = convertObjectToObject(entity, DepartmentDetailDTO.class);
-
+		
 		return dto;
 	}
 
@@ -116,34 +118,38 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 	@Override
 	public void createDepartment(CreatingDepartmentForm form) {
 		// create department
-		Department department = Department.builder().name(form.getName())
-				.manager(Account.builder().id(form.getManagerId()).build())
-				.creator(securityUtils.getCurrentAccountLogin()).createdDateTime(new Date())
-				.modifier(securityUtils.getCurrentAccountLogin()).updatedDateTime(new Date()).build();
+		Department department = Department.builder()
+				.name(form.getName())
+				.manager(Account.builder().id(form.getManagerId()) .build())
+				.creator(securityUtils.getCurrentAccountLogin())
+				.createdDateTime(new Date())
+				.modifier(securityUtils.getCurrentAccountLogin())
+				.updatedDateTime(new Date())
+				.build();
 		Department entity = departmentRepository.save(department);
-
+		
 		// add accounts to new department
-		if (form.getEmployeeIds() != null && form.getEmployeeIds().size() > 0) {
+		if(form.getEmployeeIds() != null && form.getEmployeeIds().size() > 0) {
 			accountRepository.updateDepartment(entity.getId(), form.getEmployeeIds());
 		}
-
+		
 		// add manager
 		Account manager = accountRepository.findById(form.getManagerId()).get();
 		manager.setRole(Role.MANAGER);
 		manager.setDepartment(entity);
 		accountRepository.save(manager);
-
+		
 		// update member_size
 		department.setMemberSize(1 + (form.getEmployeeIds() == null ? 0 : form.getEmployeeIds().size()));
 	}
-
+	
 	@Override
 	public void updateDepartment(Integer departmentId, UpdatingDepartmentForm form) {
 		Department department = departmentRepository.findById(departmentId).get();
-
+		
 		Account oldManager = department.getManager();
-		if (oldManager.getId() != form.getManagerId()) {
-			// update role of old manager
+		if(oldManager.getId() != form.getManagerId()) {
+			// update role of old manager			
 			oldManager.setRole(Role.EMPLOYEE);
 			accountRepository.save(oldManager);
 			// update role of new manager
@@ -152,13 +158,13 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 			// update manager of department
 			department.setManager(newManager);
 		}
-
+		
 		department.setName(form.getName());
 		department.setModifier(securityUtils.getCurrentAccountLogin());
 		department.setUpdatedDateTime(new Date());
 		departmentRepository.save(department);
 	}
-
+	
 	@Override
 	public boolean isDepartmentHasUser(Integer departmentId) {
 		Optional<Department> departmentOptional = departmentRepository.findById(departmentId);
@@ -168,11 +174,54 @@ public class DepartmentServiceImpl extends BaseService implements DepartmentServ
 		Department department = departmentOptional.get();
 		return department.getMemberSize() != 0;
 	}
-
-	// Nếu không có phòng ban thì chỉ cần Delete đi
+	
 	@Override
 	public void deleteDepartment(Integer departmentId) {
 		departmentRepository.deleteById(departmentId);
 	}
+	
+	@Override
+	public List<DepartmentForFilterDTO> getAllDepartmentsForFilter() {
+		// get entity list
+		List<Department> entities = departmentRepository.findAll();
 
+		// convert entity to dto page
+		List<DepartmentForFilterDTO> dtos = convertListObjectToListObject(entities, DepartmentForFilterDTO.class);
+
+		return dtos;
+	}
+	
+	@Override
+	public void importedAccountsIntoDepartment(Integer departmentId, ImportedAccountIntoDepartmentForm form) {
+		int addedMember = 0;
+		
+		// get department & manager
+		Department department = departmentRepository.findById(departmentId).get();
+		
+		// manager
+		if(form.getManagerId() != null) {
+			// add manager in department table
+			Account manager = accountRepository.findById(form.getManagerId()).get();
+			department.setManager(manager);
+			department.setModifier(securityUtils.getCurrentAccountLogin());
+			department.setUpdatedDateTime(new Date());
+			departmentRepository.save(department);
+			
+			// add manager in account table
+			manager.setRole(Role.MANAGER);
+			manager.setDepartment(department);
+			accountRepository.save(manager);
+			
+			addedMember += 1;
+		}
+		
+		// add employees to department
+		accountRepository.updateDepartment(department.getId(), form.getEmployeeIds());
+		
+		addedMember += form.getEmployeeIds().size();
+		
+		// update member size of department
+		department.setMemberSize(department.getMemberSize() + addedMember);
+		departmentRepository.save(department);
+	}
 }

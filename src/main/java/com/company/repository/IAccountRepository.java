@@ -19,9 +19,12 @@ public interface IAccountRepository extends JpaRepository<Account, Integer>, Jpa
 	Account findByUsername(String username);
 
 	Account findByUsernameOrEmail(String username, String email);
-
-	// UPDATE department_id = ID department_id mới vừa tạo
+	
 	@Query(value = "UPDATE `account` SET department_id = :departmentId WHERE id IN (:accountIds)", nativeQuery = true)
 	@Modifying
-	void updateDepartment(@Param("departmentId") Integer departmentId, @Param("accountIds") List<Integer> accountIds);
+	void updateDepartment(
+			@Param("departmentId") Integer departmentId, 
+			@Param("accountIds") List<Integer> accountIds);
+	
+	List<Account> findByUsernameIn(List<String> usernames);
 }
