@@ -17,11 +17,13 @@ import com.company.model.entity.Token;
 import com.company.model.entity.Token.Type;
 import com.company.repository.ITokenRepository;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Service
+@Transactional
 public class JWTTokenServiceImpl extends BaseService implements JWTTokenService {
 
 	@Value("${jwt.token.header.authorization}")
@@ -61,22 +63,36 @@ public class JWTTokenServiceImpl extends BaseService implements JWTTokenService 
 
 		// parse the token
 		try {
-			String username = Jwts.parser().setSigningKey(JWT_TOKEN_SECRET)
-					.parseClaimsJws(token.replace(JWT_TOKEN_PREFIX, "")).getBody().getSubject();
+			Claims body = Jwts.parser().setSigningKey(JWT_TOKEN_SECRET)
+					.parseClaimsJws(token.replace(JWT_TOKEN_PREFIX, "")).getBody();
 
+			String username = body.getSubject();
 			Account account = accountService.getAccountByUsername(username);
 
-			return username != null
-					? new UsernamePasswordAuthenticationToken(account.getUsername(), null,
-							AuthorityUtils.createAuthorityList(account.getRole().toString()))
-					: null;
+			if (account == null) {
+				// token is invalid
+				return null;
+			}
+
+			// checking change password time: kiem tra token cap truoc hay sao khi doi pass
+			// truoc: ko hop le -> logout
+			Date tokenExpirationTime = body.getExpiration();
+			Date tokenGeneratedTime = new Date(tokenExpirationTime.getTime() - JWT_TOKEN_TIME_EXPIRATION);
+			if (tokenGeneratedTime.before(account.getLastChangePasswordDateTime())) {
+				// token is invalid
+				return null;
+			}
+
+			return new UsernamePasswordAuthenticationToken(account.getUsername(), null,
+					AuthorityUtils.createAuthorityList(account.getRole().toString()));
+
 		} catch (Exception e) {
+			// token is invalid
 			return null;
 		}
 	}
 
 	@Override
-	@Transactional
 	public Token generateRefreshToken(Account account) {
 		Token refreshToken = new Token(account, UUID.randomUUID().toString(), Token.Type.REFRESH_TOKEN,
 				new Date(new Date().getTime() + JWT_REFRESH_TOKEN_TIME_EXPIRATION));
@@ -113,5 +129,10 @@ public class JWTTokenServiceImpl extends BaseService implements JWTTokenService 
 		String newToken = generateJWTToken(oldRefreshToken.getAccount().getUsername());
 
 		return new TokenDTO(newToken, newRefreshToken.getKey());
+	}
+
+	@Override
+	public void deleteRefreshToken(Account account) {
+		tokenRepository.deleteByTypeAndAccount(Type.REFRESH_TOKEN, account);
 	}
 }

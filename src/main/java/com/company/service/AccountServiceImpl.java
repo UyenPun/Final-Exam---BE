@@ -15,7 +15,7 @@ public class AccountServiceImpl extends BaseService implements AccountService {
 
 	@Autowired
 	private IAccountRepository accountRepository;
-
+	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -25,7 +25,9 @@ public class AccountServiceImpl extends BaseService implements AccountService {
 			throw new UsernameNotFoundException(username);
 		}
 
-		return new User(account.getUsername(), account.getPassword(),
+		return new User(
+				account.getUsername(), 
+				account.getPassword(), 
 				AuthorityUtils.createAuthorityList(account.getRole().toString()));
 	}
 

@@ -28,41 +28,47 @@ public class SecurityConfiguration {
 
 	@Autowired
 	private AuthExceptionHandler authExceptionHandler;
-
+	
 	@Autowired
 	private JWTAuthorizationFilter jwtAuthorizationFilter;
-
+	
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+	public AuthenticationManager authenticationManager(
+			AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
 
 	@SuppressWarnings("removal")
 	@Bean
 	public SecurityFilterChain configureSecurity(HttpSecurity http) throws Exception {
-		http.cors(withDefaults()).csrf((csrf) -> csrf.disable()).authorizeHttpRequests((requests) -> requests
-				// Swagger
-				.requestMatchers("/swagger-ui/**", "v3/api-docs/**").anonymous()
-
-				// check exists - Register Account
-				.requestMatchers(RegexRequestMatcher.regexMatcher(".+/exists.+")).anonymous()
-
-				// authen
-				.requestMatchers("/api/v1/auth/**").anonymous()
-
-				// department: chỉ ADMIN, MANAGER vào được
-				.requestMatchers(HttpMethod.GET, "/api/v1/departments/**")
-				.hasAnyAuthority(Role.ADMIN.toString(), Role.MANAGER.toString())
-
-				.anyRequest().authenticated())
-
-				.httpBasic(withDefaults())
-				.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class).exceptionHandling()
-				.authenticationEntryPoint(authExceptionHandler).accessDeniedHandler(authExceptionHandler);
-
+		http
+			.cors(withDefaults())
+			.csrf((csrf) -> csrf.disable())
+			.authorizeHttpRequests((requests) -> requests
+					// Swagger
+					.requestMatchers("/swagger-ui/**", "v3/api-docs/**").anonymous()
+					
+					// check exists
+					.requestMatchers(RegexRequestMatcher.regexMatcher(".+/exists.+")).anonymous()
+					
+					// authen
+					.requestMatchers("/api/v1/auth/**").anonymous()
+					
+					// department
+					.requestMatchers(HttpMethod.GET, "/api/v1/departments/**")
+						.hasAnyAuthority(Role.ADMIN.toString(), Role.MANAGER.toString())
+						
+					.anyRequest().authenticated())
+			
+			.httpBasic(withDefaults())
+			.addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)
+			.exceptionHandling()
+			.authenticationEntryPoint(authExceptionHandler)
+            .accessDeniedHandler(authExceptionHandler);
+		
 		return http.build();
 	}
-
+	
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		final CorsConfiguration configuration = new CorsConfiguration();

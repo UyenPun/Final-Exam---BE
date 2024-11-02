@@ -13,6 +13,7 @@ import com.company.model.entity.Account;
 import com.company.model.entity.Account.Status;
 import com.company.model.entity.Token;
 import com.company.model.form.account.CreatingAccountForm;
+import com.company.model.form.auth.ResetPasswordForm;
 import com.company.repository.IAccountRepository;
 
 @Service
@@ -59,12 +60,11 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 		return dto;
 	}
 
-	// Register Account
 	@Override
 	public void createAccount(CreatingAccountForm form) {
 		// create account (status = block & role = employee)
 		Account entity = convertObjectToObject(form, Account.class);
-		entity.setPassword(passwordEncoder.encode(form.getPassword())); // encode
+		entity.setPassword(passwordEncoder.encode(form.getPassword()));
 		accountRepository.save(entity);
 
 		// create token & send email
@@ -75,24 +75,59 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 	public void sendAccountRegistrationTokenViaEmail(String username) {
 		// get account
 		Account account = accountRepository.findByUsername(username);
-		// create new token: đính kèm với acc đấy
+		// create new token
 		Token newRegistrationToken = tokenService.generateAccountRegistrationToken(account);
 		// send email
 		emailService.sendActiveAccountRegistrationEmail(account, newRegistrationToken.getKey());
 	}
 
-	// Active account
 	@Override
 	public void activeAccount(String registrationToken) {
 		Token token = tokenService.getRegistrationTokenByKey(registrationToken);
 
-		// active account:
-		Account account = token.getAccount(); // check token của Acc nào
+		// active account
+		Account account = token.getAccount();
 		account.setStatus(Status.ACTIVE);
 		account.setUpdatedDateTime(new Date());
 		accountRepository.save(account);
 
 		// delete registration token
 		tokenService.deleteAccountRegistrationToken(account);
+	}
+
+	@Override
+	public void sendAccountForgotPasswordTokenViaEmail(String usernameOrEmail) {
+		// get account: tìm Acc từ User or Email
+		Account account = accountRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
+		// create new token
+		Token newForgotPasswordToken = tokenService.generateForgotPasswordToken(account);
+		// send email
+		emailService.sendForgotPasswordEmail(account, newForgotPasswordToken.getKey());
+	}
+
+	@Override
+	public String getUsernameFromForgotPasswordToken(String forgotPasswordToken) {
+		Token token = tokenService.getForgotPasswordTokenByKey(forgotPasswordToken);
+		return token.getAccount().getUsername();
+	}
+
+	// reset Password
+	@Override
+	public void resetPassword(ResetPasswordForm form) {
+		Token token = tokenService.getForgotPasswordTokenByKey(form.getForgotPasswordToken());
+
+		// reset password
+		Account account = token.getAccount();
+		account.setPassword(passwordEncoder.encode(form.getNewPassword())); // set new password
+		account.setUpdatedDateTime(new Date());
+		account.setLastChangePasswordDateTime(new Date()); // ghi lai time doi new password -> de tk JWT cu ko login
+															// duoc nua
+		accountRepository.save(account);
+
+		// delete registration token
+		tokenService.deleteForgotPasswordToken(account);
+
+		// delete old refresh token
+		jwtTokenService.deleteRefreshToken(account);
 	}
 }

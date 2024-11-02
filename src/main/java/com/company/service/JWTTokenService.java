@@ -19,4 +19,6 @@ public interface JWTTokenService {
 	boolean isRefreshTokenValid(String refreshToken);
 
 	TokenDTO getNewToken(String refreshToken);
+	
+	void deleteRefreshToken(Account account);
 }

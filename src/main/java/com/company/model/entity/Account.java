@@ -68,6 +68,11 @@ public class Account implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
+	@Column(name = "last_change_password_date_time")
+	@Temporal(TemporalType.TIMESTAMP)
+	@CreationTimestamp
+	private Date lastChangePasswordDateTime;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "creator_id", referencedColumnName = "id")
 	private Account creator;

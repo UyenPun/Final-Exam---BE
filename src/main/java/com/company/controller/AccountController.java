@@ -29,4 +29,8 @@ public class AccountController {
 		return accountService.isAccountExistsByEmail(email);
 	}
 
+	@GetMapping("/usernameOrEmail/exists")
+	public boolean isAccountExistsByUsernameOrEmail(String usernameOrEmail) {
+		return accountService.isAccountExistsByUsername(usernameOrEmail) || accountService.isAccountExistsByEmail(usernameOrEmail);
+	}
 }

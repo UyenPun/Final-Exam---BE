@@ -12,4 +12,12 @@ public interface TokenService {
 	boolean isRegistrationTokenValid(String registrationToken);
 
 	Token getRegistrationTokenByKey(String key);
+
+	Token generateForgotPasswordToken(Account account);
+
+	void deleteForgotPasswordToken(Account account);
+
+	boolean isForgotPasswordTokenValid(String forgotPasswordToken);
+
+	Token getForgotPasswordTokenByKey(String key);
 }
