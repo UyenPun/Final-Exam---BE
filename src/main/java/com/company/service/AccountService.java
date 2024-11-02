@@ -11,4 +11,6 @@ public interface AccountService extends UserDetailsService {
 	boolean isAccountExistsByUsername(String username);
 
 	boolean isAccountExistsByEmail(String email);
+
+	boolean isOldPasswordCorrect(String oldPassword);
 }

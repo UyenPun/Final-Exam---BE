@@ -18,6 +18,7 @@ import com.company.config.security.AccountBlockException;
 import com.company.model.dto.auth.LoginInfoDTO;
 import com.company.model.dto.auth.TokenDTO;
 import com.company.model.form.account.CreatingAccountForm;
+import com.company.model.form.auth.ChangePasswordForm;
 import com.company.model.form.auth.LoginForm;
 import com.company.model.form.auth.ResetPasswordForm;
 import com.company.model.validation.account.AccountUsernameExists;
@@ -79,7 +80,6 @@ public class AuthController {
 		return "Active success!";
 	}
 
-	// Forgot password
 	@GetMapping("/password/forgot-mail")
 	public String sendAccountForgotPasswordTokenViaEmail(
 			@RequestParam @AccountUsernameOrEmailExists String usernameOrEmail) {
@@ -87,15 +87,21 @@ public class AuthController {
 		return "Email sent to your email! Please check it!";
 	}
 
-	// get Username from token
+	@PutMapping("/password/new-password")
+	public String resetPasswordViaEmail(@Valid @RequestBody ResetPasswordForm form) {
+		authService.resetPassword(form);
+		return "Change password successfully!";
+	}
+
 	@GetMapping("/password/forgot/username")
 	public String getUsernameFromForgotPasswordToken(@ForgotPasswordTokenValid @NotBlank String forgotPasswordToken) {
 		return authService.getUsernameFromForgotPasswordToken(forgotPasswordToken);
 	}
 
-	@PutMapping("/password/new-password")
-	public String resetPasswordViaEmail(@Valid @RequestBody ResetPasswordForm form) {
-		authService.resetPassword(form);
+	// Change password
+	@PutMapping("/password/change")
+	public String changePassword(@Valid @RequestBody ChangePasswordForm form) {
+		authService.changePassword(form);
 		return "Change password successfully!";
 	}
 }

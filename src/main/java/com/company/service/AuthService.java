@@ -3,6 +3,7 @@ package com.company.service;
 import com.company.config.security.AccountBlockException;
 import com.company.model.dto.auth.LoginInfoDTO;
 import com.company.model.form.account.CreatingAccountForm;
+import com.company.model.form.auth.ChangePasswordForm;
 import com.company.model.form.auth.ResetPasswordForm;
 
 public interface AuthService {
@@ -20,4 +21,6 @@ public interface AuthService {
 	String getUsernameFromForgotPasswordToken(String forgotPasswordToken);
 	
 	void resetPassword(ResetPasswordForm form);
+
+	void changePassword(ChangePasswordForm form);
 }

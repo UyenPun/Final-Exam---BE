@@ -74,8 +74,7 @@ public class JWTTokenServiceImpl extends BaseService implements JWTTokenService 
 				return null;
 			}
 
-			// checking change password time: kiem tra token cap truoc hay sao khi doi pass
-			// truoc: ko hop le -> logout
+			// checking change password time: time cap token trc hay sau change
 			Date tokenExpirationTime = body.getExpiration();
 			Date tokenGeneratedTime = new Date(tokenExpirationTime.getTime() - JWT_TOKEN_TIME_EXPIRATION);
 			if (tokenGeneratedTime.before(account.getLastChangePasswordDateTime())) {

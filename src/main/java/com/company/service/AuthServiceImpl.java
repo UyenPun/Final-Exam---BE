@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.company.config.security.AccountBlockException;
+import com.company.config.security.SecurityUtils;
 import com.company.model.dto.auth.LoginInfoDTO;
 import com.company.model.entity.Account;
 import com.company.model.entity.Account.Status;
 import com.company.model.entity.Token;
 import com.company.model.form.account.CreatingAccountForm;
+import com.company.model.form.auth.ChangePasswordForm;
 import com.company.model.form.auth.ResetPasswordForm;
 import com.company.repository.IAccountRepository;
 
@@ -34,6 +36,9 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 
 	@Autowired
 	private IAccountRepository accountRepository;
+
+	@Autowired
+	private SecurityUtils securityUtils;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -97,7 +102,7 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 
 	@Override
 	public void sendAccountForgotPasswordTokenViaEmail(String usernameOrEmail) {
-		// get account: tìm Acc từ User or Email
+		// get account
 		Account account = accountRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
 		// create new token
 		Token newForgotPasswordToken = tokenService.generateForgotPasswordToken(account);
@@ -111,23 +116,38 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 		return token.getAccount().getUsername();
 	}
 
-	// reset Password
 	@Override
 	public void resetPassword(ResetPasswordForm form) {
 		Token token = tokenService.getForgotPasswordTokenByKey(form.getForgotPasswordToken());
 
 		// reset password
 		Account account = token.getAccount();
-		account.setPassword(passwordEncoder.encode(form.getNewPassword())); // set new password
+		account.setPassword(passwordEncoder.encode(form.getNewPassword()));
 		account.setUpdatedDateTime(new Date());
-		account.setLastChangePasswordDateTime(new Date()); // ghi lai time doi new password -> de tk JWT cu ko login
-															// duoc nua
+		account.setLastChangePasswordDateTime(new Date());
 		accountRepository.save(account);
 
-		// delete registration token
+		// delete forgot password token
 		tokenService.deleteForgotPasswordToken(account);
 
 		// delete old refresh token
 		jwtTokenService.deleteRefreshToken(account);
+	}
+
+//	Change Password
+	@Override
+	public void changePassword(ChangePasswordForm form) {
+		// change password -> login roi
+		Account account = securityUtils.getCurrentAccountLogin();
+		account.setPassword(passwordEncoder.encode(form.getNewPassword()));
+		account.setUpdatedDateTime(new Date());
+		account.setLastChangePasswordDateTime(new Date());
+		accountRepository.save(account);
+
+		// delete old refresh token
+		jwtTokenService.deleteRefreshToken(account);
+
+		// send email
+		emailService.sendChangePasswordEmail(account);
 	}
 }

@@ -17,22 +17,25 @@ public class TokenServiceImpl extends BaseService implements TokenService {
 
 	@Value("${auth.registration.token.time.expiration}")
 	private long AUTH_REGISTRATION_TOKEN_TIME_EXPIRATION;
-
+	
 	@Value("${auth.password.forgot.token.time.expiration}")
 	private long AUTH_PASSWORD_FORGOT_TOKEN_TIME_EXPIRATION;
-
+	
 	@Autowired
 	private ITokenRepository tokenRepository;
 
 	@Override
 	public Token generateAccountRegistrationToken(Account account) {
-		Token registrationToken = new Token(account, UUID.randomUUID().toString(), Token.Type.REGISTER,
+		Token registrationToken = new Token(
+				account, 
+				UUID.randomUUID().toString(), 
+				Token.Type.REGISTER,
 				new Date(new Date().getTime() + AUTH_REGISTRATION_TOKEN_TIME_EXPIRATION));
-
+		
 		// delete old registration token of this account
 		deleteAccountRegistrationToken(account);
 
-		// create new token: save
+		// create new token
 		return tokenRepository.save(registrationToken);
 	}
 
@@ -49,7 +52,7 @@ public class TokenServiceImpl extends BaseService implements TokenService {
 		}
 		return true;
 	}
-
+	
 	@Override
 	public Token getRegistrationTokenByKey(String key) {
 		return tokenRepository.findBykeyAndType(key, Type.REGISTER);
@@ -66,16 +69,19 @@ public class TokenServiceImpl extends BaseService implements TokenService {
 
 	@Override
 	public Token generateForgotPasswordToken(Account account) {
-		Token forgotPasswordToken = new Token(account, UUID.randomUUID().toString(), Token.Type.FORGOT_PASSWORD,
-				new Date(new Date().getTime() + AUTH_PASSWORD_FORGOT_TOKEN_TIME_EXPIRATION)); // config
-
+		Token forgotPasswordToken = new Token(
+				account, 
+				UUID.randomUUID().toString(), 
+				Token.Type.FORGOT_PASSWORD,
+				new Date(new Date().getTime() + AUTH_PASSWORD_FORGOT_TOKEN_TIME_EXPIRATION));
+		
 		// delete old forgot password token of this account
 		deleteForgotPasswordToken(account);
 
 		// create new token
 		return tokenRepository.save(forgotPasswordToken);
 	}
-
+	
 	@Override
 	public void deleteForgotPasswordToken(Account account) {
 		tokenRepository.deleteByTypeAndAccount(Type.FORGOT_PASSWORD, account);
