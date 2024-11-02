@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "0448b063-abc8-4b64-9715-e9d25b3568ca",
+		"name": "Accounts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3802039"
+	},
+	"item": [
+		{
+			"name": "exists",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "check username exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/accounts/username/exists?username=duynn03",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"accounts",
+										"username",
+										"exists"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "duynn03"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "check email exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/accounts/email/exists?username=duynn03@gmail.com",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"accounts",
+										"email",
+										"exists"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "duynn03@gmail.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "check username or email exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/accounts/usernameOrEmail/exists?usernameOrEmail=duynn03",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"accounts",
+										"usernameOrEmail",
+										"exists"
+									],
+									"query": [
+										{
+											"key": "usernameOrEmail",
+											"value": "duynn03"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": []
+				}
+			]
+		}
+	]
+}

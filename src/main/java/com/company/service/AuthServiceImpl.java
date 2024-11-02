@@ -27,19 +27,19 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 
 	@Autowired
 	private AccountService accountService;
-
+	
 	@Autowired
 	private TokenService tokenService;
-
+	
 	@Autowired
 	private EmailService emailService;
-
+	
 	@Autowired
 	private IAccountRepository accountRepository;
-
+	
 	@Autowired
 	private SecurityUtils securityUtils;
-
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -48,10 +48,10 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 		// get entity
 		Account entity = accountService.getAccountByUsername(username);
 
-		if (entity.getStatus() == Status.BLOCK) {
+		if(entity.getStatus() == Status.BLOCK) {
 			throw new AccountBlockException("Your account is blocked!");
 		}
-
+		
 		// convert entity to dto
 		LoginInfoDTO dto = convertObjectToObject(entity, LoginInfoDTO.class);
 
@@ -64,18 +64,18 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 
 		return dto;
 	}
-
+	
 	@Override
 	public void createAccount(CreatingAccountForm form) {
 		// create account (status = block & role = employee)
 		Account entity = convertObjectToObject(form, Account.class);
 		entity.setPassword(passwordEncoder.encode(form.getPassword()));
 		accountRepository.save(entity);
-
+		
 		// create token & send email
 		sendAccountRegistrationTokenViaEmail(entity.getUsername());
 	}
-
+	
 	@Override
 	public void sendAccountRegistrationTokenViaEmail(String username) {
 		// get account
@@ -89,13 +89,13 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 	@Override
 	public void activeAccount(String registrationToken) {
 		Token token = tokenService.getRegistrationTokenByKey(registrationToken);
-
+		
 		// active account
 		Account account = token.getAccount();
 		account.setStatus(Status.ACTIVE);
 		account.setUpdatedDateTime(new Date());
 		accountRepository.save(account);
-
+		
 		// delete registration token
 		tokenService.deleteAccountRegistrationToken(account);
 	}
@@ -115,29 +115,28 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 		Token token = tokenService.getForgotPasswordTokenByKey(forgotPasswordToken);
 		return token.getAccount().getUsername();
 	}
-
+	
 	@Override
 	public void resetPassword(ResetPasswordForm form) {
 		Token token = tokenService.getForgotPasswordTokenByKey(form.getForgotPasswordToken());
-
+		
 		// reset password
 		Account account = token.getAccount();
 		account.setPassword(passwordEncoder.encode(form.getNewPassword()));
 		account.setUpdatedDateTime(new Date());
 		account.setLastChangePasswordDateTime(new Date());
 		accountRepository.save(account);
-
+		
 		// delete forgot password token
 		tokenService.deleteForgotPasswordToken(account);
-
+		
 		// delete old refresh token
 		jwtTokenService.deleteRefreshToken(account);
 	}
 
-//	Change Password
 	@Override
 	public void changePassword(ChangePasswordForm form) {
-		// change password -> login roi
+		// change password
 		Account account = securityUtils.getCurrentAccountLogin();
 		account.setPassword(passwordEncoder.encode(form.getNewPassword()));
 		account.setUpdatedDateTime(new Date());
@@ -146,7 +145,7 @@ public class AuthServiceImpl extends BaseService implements AuthService {
 
 		// delete old refresh token
 		jwtTokenService.deleteRefreshToken(account);
-
+		
 		// send email
 		emailService.sendChangePasswordEmail(account);
 	}

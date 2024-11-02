@@ -48,13 +48,12 @@ public class SecurityConfiguration {
 				// check exists
 				.requestMatchers(RegexRequestMatcher.regexMatcher(".+/exists.+")).anonymous()
 
-				// authen - change pass phai authen moi vao duoc
+				// authen
 				.requestMatchers("/api/v1/auth/password/change").authenticated().requestMatchers("/api/v1/auth/**")
 				.anonymous()
 
-				// department
-				.requestMatchers(HttpMethod.GET, "/api/v1/departments/**")
-				.hasAnyAuthority(Role.ADMIN.toString(), Role.MANAGER.toString())
+				// view list department: phan quyen
+				.requestMatchers(HttpMethod.GET, "/api/v1/departments/**").hasAnyAuthority(Role.ADMIN.toString())
 
 				.anyRequest().authenticated())
 

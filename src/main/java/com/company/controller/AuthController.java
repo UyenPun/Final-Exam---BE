@@ -39,7 +39,7 @@ public class AuthController {
 
 	@Autowired
 	private AuthService authService;
-
+	
 	@Autowired
 	private JWTTokenService jwtTokenService;
 
@@ -47,16 +47,18 @@ public class AuthController {
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/login")
-	public LoginInfoDTO login(@RequestBody @Valid LoginForm loginForm) throws AccountBlockException {
+	public LoginInfoDTO login(@RequestBody @Valid LoginForm loginForm) throws AccountBlockException{
 
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword()));
+				new UsernamePasswordAuthenticationToken(
+						loginForm.getUsername(), 
+						loginForm.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		return authService.login(loginForm.getUsername());
 	}
-
+	
 	@GetMapping("/refreshToken")
 	public TokenDTO refreshtoken(@RefreshTokenValid String refreshToken) {
 		return jwtTokenService.getNewToken(refreshToken);
@@ -79,26 +81,24 @@ public class AuthController {
 		authService.activeAccount(registrationToken);
 		return "Active success!";
 	}
-
+	
 	@GetMapping("/password/forgot-mail")
-	public String sendAccountForgotPasswordTokenViaEmail(
-			@RequestParam @AccountUsernameOrEmailExists String usernameOrEmail) {
+	public String sendAccountForgotPasswordTokenViaEmail(@RequestParam @AccountUsernameOrEmailExists String usernameOrEmail) {
 		authService.sendAccountForgotPasswordTokenViaEmail(usernameOrEmail);
 		return "Email sent to your email! Please check it!";
 	}
-
+	
 	@PutMapping("/password/new-password")
 	public String resetPasswordViaEmail(@Valid @RequestBody ResetPasswordForm form) {
 		authService.resetPassword(form);
 		return "Change password successfully!";
 	}
-
+	
 	@GetMapping("/password/forgot/username")
 	public String getUsernameFromForgotPasswordToken(@ForgotPasswordTokenValid @NotBlank String forgotPasswordToken) {
 		return authService.getUsernameFromForgotPasswordToken(forgotPasswordToken);
 	}
-
-	// Change password
+	
 	@PutMapping("/password/change")
 	public String changePassword(@Valid @RequestBody ChangePasswordForm form) {
 		authService.changePassword(form);

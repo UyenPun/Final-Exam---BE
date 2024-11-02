@@ -1,0 +1,997 @@
+{
+	"info": {
+		"_postman_id": "7fa61c10-49a6-4caa-bae4-a315f9970ca1",
+		"name": "Auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3802039"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Admin Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.set(\"token\", jsonData.token);\r",
+											"pm.environment.set(\"refreshToken\", jsonData.refreshToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"duynn03\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Manager Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.set(\"token\", jsonData.token);\r",
+											"pm.environment.set(\"refreshToken\", jsonData.refreshToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"duc.nguyenthe\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Employee Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.set(\"token\", jsonData.token);\r",
+											"pm.environment.set(\"refreshToken\", jsonData.refreshToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"thiettv98\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.environment.set(\"token\", jsonData.token);\r",
+											"pm.environment.set(\"refreshToken\", jsonData.refreshToken);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/refreshToken?refreshToken={{refreshToken}}",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"refreshToken"
+									],
+									"query": [
+										{
+											"key": "refreshToken",
+											"value": "{{refreshToken}}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Wrong Username / Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"duynn03\",\r\n    \"password\": \"11111111111111\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Account is Block",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 403\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"})"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"le.thina\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/login",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Token Invalid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/refreshToken?refreshToken=11111111111",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"refreshToken"
+									],
+									"query": [
+										{
+											"key": "refreshToken",
+											"value": "11111111111"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Registration",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "1. Create Account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"Nguyễn\",\r\n    \"lastname\": \"Mỵ\",\r\n    \"username\": \"mynt2407\",\r\n    \"email\": \"mynt2407@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/registration",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"registration"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Active Account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/registration/active?registrationToken=aa7a7cbc-c532-43f8-97ae-4b042da4ec54",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"registration",
+										"active"
+									],
+									"query": [
+										{
+											"key": "registrationToken",
+											"value": "aa7a7cbc-c532-43f8-97ae-4b042da4ec54"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Resend Active Account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/registration/active-mail?username=mynt2407",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"registration",
+										"active-mail"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "mynt2407"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "1. Create Account - username exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Username Not Exists\", function () {\r",
+											"    pm.expect(jsonData.exception.username).to.contain(\"Username exists already!\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"Nguyễn\",\r\n    \"lastname\": \"Duy\",\r\n    \"username\": \"duynn03\",\r\n    \"email\": \"duynn03@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/registration",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"registration"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "1. Create Account - email exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Email Not Exists\", function () {\r",
+											"    pm.expect(jsonData.exception.email).to.contain(\"Email exists already!\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstname\": \"Nguyễn\",\r\n    \"lastname\": \"Duy\",\r\n    \"username\": \"duynn03\",\r\n    \"email\": \"duynn03@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/registration",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"registration"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Active Account - token not exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"RegistrationToken Exists\", function () {\r",
+											"    pm.expect(jsonData.detailMessage).to.contain(\"RegistrationToken is not valid!\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/registration/active?registrationToken=1111111111111111",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"registration",
+										"active"
+									],
+									"query": [
+										{
+											"key": "registrationToken",
+											"value": "1111111111111111"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Resend Active Account - username not exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Username Exists\", function () {\r",
+											"    pm.expect(jsonData.detailMessage).to.contain(\"Username not exists!\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/registration/active-mail?username=1111111111111",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"registration",
+										"active-mail"
+									],
+									"query": [
+										{
+											"key": "username",
+											"value": "1111111111111"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Forgot-Password",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "1. Forgot Password Mail",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/password/forgot-mail?usernameOrEmail=mynt2407",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"password",
+										"forgot-mail"
+									],
+									"query": [
+										{
+											"key": "usernameOrEmail",
+											"value": "mynt2407"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get Username From ForgotPasswordToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/password/forgot/username?forgotPasswordToken=288f3447-98a8-417c-8cda-d41b9f0f1d40",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"password",
+										"forgot",
+										"username"
+									],
+									"query": [
+										{
+											"key": "forgotPasswordToken",
+											"value": "288f3447-98a8-417c-8cda-d41b9f0f1d40"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Reset Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"forgotPasswordToken\": \"7a05c12a-3599-4893-bd8a-aefc9fbf735e\",\r\n    \"newPassword\": \"123456789\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/password/new-password",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"password",
+										"new-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "1. Forgot Password Mail - username/email not exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"Username/Email Not Exists\", function () {\r",
+											"    pm.expect(jsonData.detailMessage).to.contain(\"Username/Email not exists!\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/password/forgot-mail?usernameOrEmail=11111111111",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"password",
+										"forgot-mail"
+									],
+									"query": [
+										{
+											"key": "usernameOrEmail",
+											"value": "11111111111"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Get Username From ForgotPasswordToken - token invalid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{host}}/auth/password/forgot/username?forgotPasswordToken=11111111111",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"password",
+										"forgot",
+										"username"
+									],
+									"query": [
+										{
+											"key": "forgotPasswordToken",
+											"value": "11111111111"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Reset Password - token invalid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"ForgotPasswordToken Exists\", function () {\r",
+											"    pm.expect(jsonData.exception.forgotPasswordToken).to.contain(\"ForgotPasswordToken is not valid!\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"forgotPasswordToken\": \"11111111111111111\",\r\n    \"newPassword\": \"123456789\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/password/new-password",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"password",
+										"new-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Change Password",
+			"item": [
+				{
+					"name": "Positive",
+					"item": [
+						{
+							"name": "Change Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"oldPassword\": \"123456\",\r\n    \"newPassword\": \"123456789\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/password/change",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"password",
+										"change"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Negative",
+					"item": [
+						{
+							"name": "Change Password - wrong oldpassword",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"HTTP Status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"var jsonData = pm.response.json();\r",
+											"pm.test(\"OldPassword is correct\", function () {\r",
+											"    pm.expect(jsonData.exception.oldPassword).to.contain(\"OldPassword is incorrect!\");\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"oldPassword\": \"11111111111111111\",\r\n    \"newPassword\": \"123456789\" \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/auth/password/change",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"auth",
+										"password",
+										"change"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.company.model.dto.department.DepartmentDTO;
+import com.company.model.form.department.DepartmentFilterForm;
 import com.company.service.DepartmentService;
 
+import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
@@ -23,8 +25,8 @@ public class DepartmentController {
 	private DepartmentService departmentService;
 
 	@GetMapping
-	public Page<DepartmentDTO> getAllDepartments(Pageable pageable) {
-		return departmentService.getAllDepartments(pageable);
+	public Page<DepartmentDTO> getAllDepartments(Pageable pageable, @Valid DepartmentFilterForm form) {
+		return departmentService.getAllDepartments(pageable, form);
 	}
 
 }
