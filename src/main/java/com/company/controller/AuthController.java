@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.company.config.security.AccountBlockException;
 import com.company.model.dto.auth.LoginInfoDTO;
 import com.company.model.dto.auth.TokenDTO;
+import com.company.model.form.account.CreatingAccountForm;
 import com.company.model.form.auth.LoginForm;
+import com.company.model.validation.account.AccountUsernameExists;
+import com.company.model.validation.auth.RefreshTokenValid;
+import com.company.model.validation.auth.RegistrationTokenValid;
 import com.company.service.AuthService;
 import com.company.service.JWTTokenService;
-import com.company.model.validation.auth.RefreshTokenValid;
 
 import jakarta.validation.Valid;
 
@@ -29,7 +33,7 @@ public class AuthController {
 
 	@Autowired
 	private AuthService authService;
-	
+
 	@Autowired
 	private JWTTokenService jwtTokenService;
 
@@ -37,20 +41,39 @@ public class AuthController {
 	private AuthenticationManager authenticationManager;
 
 	@PostMapping("/login")
-	public LoginInfoDTO login(@RequestBody @Valid LoginForm loginForm) throws AccountBlockException{
+	public LoginInfoDTO login(@RequestBody @Valid LoginForm loginForm) throws AccountBlockException {
 
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(
-						loginForm.getUsername(), 
-						loginForm.getPassword()));
+				new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		return authService.login(loginForm.getUsername());
 	}
-	
+
 	@GetMapping("/refreshToken")
 	public TokenDTO refreshtoken(@RefreshTokenValid String refreshToken) {
 		return jwtTokenService.getNewToken(refreshToken);
+	}
+
+	// Register Account
+	@PostMapping("/registration")
+	public String createAccount(@Valid @RequestBody CreatingAccountForm form) {
+		authService.createAccount(form);
+		return "We have sent a email. Please check email to active account!";
+	}
+
+	// hứng token sau khi đăng ký -> để biết muốn Active thằng nào
+	@GetMapping("/registration/active-mail")
+	public String resendAccountRegistrationTokenViaEmail(@RequestParam @AccountUsernameExists String username) {
+		authService.sendAccountRegistrationTokenViaEmail(username);
+		return "We have sent a email. Please check email to active account!";
+	}
+
+	//
+	@GetMapping("/registration/active")
+	public String activeAccountViaEmail(@RequestParam @RegistrationTokenValid String registrationToken) {
+		authService.activeAccount(registrationToken);
+		return "Active success!";
 	}
 }

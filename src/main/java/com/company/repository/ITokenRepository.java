@@ -10,7 +10,7 @@ import com.company.model.entity.Token.Type;
 public interface ITokenRepository extends JpaRepository<Token, Integer> {
 
 	@Modifying
-	void deleteByAccount(Account account);
+	void deleteByTypeAndAccount(Type type, Account account);
 
 	Token findBykeyAndType(String key, Type type);
 }

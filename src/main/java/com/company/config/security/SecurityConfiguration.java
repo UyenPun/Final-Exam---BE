@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -42,6 +43,9 @@ public class SecurityConfiguration {
 		http.cors(withDefaults()).csrf((csrf) -> csrf.disable()).authorizeHttpRequests((requests) -> requests
 				// Swagger
 				.requestMatchers("/swagger-ui/**", "v3/api-docs/**").anonymous()
+
+				// check exists - Register Account
+				.requestMatchers(RegexRequestMatcher.regexMatcher(".+/exists.+")).anonymous()
 
 				// authen
 				.requestMatchers("/api/v1/auth/**").anonymous()

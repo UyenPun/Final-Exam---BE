@@ -72,3 +72,66 @@
 2024-10-30 16:16:58 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat started on port(s): 8080 (http) with context path '' 
 2024-10-30 16:16:58 [restartedMain] INFO  c.c.Application                                    - Started Application in 1.963 seconds (process running for 117.16) 
 2024-10-30 16:16:58 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener  - Condition evaluation unchanged 
+2024-10-30 16:17:07 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification) 
+2024-10-30 16:17:07 [Thread-7] INFO  o.a.c.h.Http11NioProtocol                          - Pausing ProtocolHandler ["http-nio-8080"] 
+2024-10-30 16:17:07 [Thread-7] INFO  o.a.c.c.StandardService                            - Stopping service [Tomcat] 
+2024-10-30 16:17:07 [Thread-7] WARN  o.a.c.l.WebappClassLoaderBase                      - The web application [ROOT] appears to have started a thread named [HikariPool-2 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.12/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.12/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.12/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.12/java.lang.Thread.run(Thread.java:842) 
+2024-10-30 16:17:07 [Thread-7] INFO  o.a.c.h.Http11NioProtocol                          - Stopping ProtocolHandler ["http-nio-8080"] 
+2024-10-30 16:17:07 [Thread-7] INFO  o.a.c.h.Http11NioProtocol                          - Destroying ProtocolHandler ["http-nio-8080"] 
+2024-10-30 16:17:07 [Thread-7] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Closing JPA EntityManagerFactory for persistence unit 'default' 
+2024-10-30 16:17:07 [Thread-7] INFO  c.z.h.HikariDataSource                             - HikariPool-2 - Shutdown initiated... 
+2024-10-30 16:17:07 [Thread-7] INFO  c.z.h.HikariDataSource                             - HikariPool-2 - Shutdown completed. 
+2024-10-30 16:17:07 [restartedMain] INFO  c.c.Application                                    - Starting Application using Java 17.0.12 with PID 11304 (D:\Java Be\4. Java Advanced\Lesson_16_Final Exam\Code\FinalBE\target\classes started by Admin in D:\Java Be\4. Java Advanced\Lesson_16_Final Exam\Code\FinalBE) 
+2024-10-30 16:17:07 [restartedMain] INFO  c.c.Application                                    - The following 1 profile is active: "dev" 
+2024-10-30 16:17:08 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Bootstrapping Spring Data JPA repositories in DEFAULT mode. 
+2024-10-30 16:17:08 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate          - Finished Spring Data repository scanning in 19 ms. Found 4 JPA repository interfaces. 
+2024-10-30 16:17:08 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat initialized with port(s): 8080 (http) 
+2024-10-30 16:17:08 [restartedMain] INFO  o.a.c.h.Http11NioProtocol                          - Initializing ProtocolHandler ["http-nio-8080"] 
+2024-10-30 16:17:08 [restartedMain] INFO  o.a.c.c.StandardService                            - Starting service [Tomcat] 
+2024-10-30 16:17:08 [restartedMain] INFO  o.a.c.c.StandardEngine                             - Starting Servlet engine: [Apache Tomcat/10.1.13] 
+2024-10-30 16:17:08 [restartedMain] INFO  o.a.c.c.C.[.[.[/]                                  - Initializing Spring embedded WebApplicationContext 
+2024-10-30 16:17:08 [restartedMain] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext     - Root WebApplicationContext: initialization completed in 626 ms 
+2024-10-30 16:17:08 [restartedMain] INFO  c.z.h.HikariDataSource                             - HikariPool-3 - Starting... 
+2024-10-30 16:17:08 [restartedMain] INFO  c.z.h.p.HikariPool                                 - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@673e143b 
+2024-10-30 16:17:08 [restartedMain] INFO  c.z.h.HikariDataSource                             - HikariPool-3 - Start completed. 
+2024-10-30 16:17:08 [restartedMain] INFO  o.h.j.i.u.LogHelper                                - HHH000204: Processing PersistenceUnitInfo [name: default] 
+2024-10-30 16:17:08 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator                  - HHH000021: Bytecode provider name : bytebuddy 
+2024-10-30 16:17:08 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo                - No LoadTimeWeaver setup: ignoring JPA class transformer 
+2024-10-30 16:17:08 [restartedMain] INFO  o.h.b.i.BytecodeProviderInitiator                  - HHH000021: Bytecode provider name : bytebuddy 
+2024-10-30 16:17:08 [restartedMain] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator                 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform] 
+2024-10-30 16:17:08 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Initialized JPA EntityManagerFactory for persistence unit 'default' 
+2024-10-30 16:17:09 [restartedMain] WARN  o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning 
+2024-10-30 16:17:09 [restartedMain] INFO  o.s.s.w.DefaultSecurityFilterChain                 - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1e193a4b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@71858eeb, org.springframework.security.web.context.SecurityContextHolderFilter@8088857, org.springframework.security.web.header.HeaderWriterFilter@7788e811, org.springframework.web.filter.CorsFilter@5aa85676, org.springframework.security.web.authentication.logout.LogoutFilter@7e9bee3e, com.company.config.security.JWTAuthorizationFilter@5cdaae7a, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@278e5c85, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@59ca9aa4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2e52a27, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@f9753d2, org.springframework.security.web.access.ExceptionTranslationFilter@4b77e5, org.springframework.security.web.access.intercept.AuthorizationFilter@645a86d] 
+2024-10-30 16:17:09 [restartedMain] INFO  o.s.b.d.a.OptionalLiveReloadServer                 - LiveReload server is running on port 35729 
+2024-10-30 16:17:09 [restartedMain] INFO  o.a.c.h.Http11NioProtocol                          - Starting ProtocolHandler ["http-nio-8080"] 
+2024-10-30 16:17:09 [restartedMain] INFO  o.s.b.w.e.t.TomcatWebServer                        - Tomcat started on port(s): 8080 (http) with context path '' 
+2024-10-30 16:17:09 [restartedMain] INFO  c.c.Application                                    - Started Application in 1.93 seconds (process running for 128.935) 
+2024-10-30 16:17:09 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener  - Condition evaluation unchanged 
+2024-10-30 17:30:54 [RMI TCP Connection(88)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2024-10-30 17:30:54 [RMI TCP Connection(87)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested. 
+2024-10-30 17:30:54 [RMI TCP Connection(88)-127.0.0.1] INFO  o.a.c.h.Http11NioProtocol                          - Pausing ProtocolHandler ["http-nio-8080"] 
+2024-10-30 17:30:54 [RMI TCP Connection(88)-127.0.0.1] INFO  o.a.c.c.StandardService                            - Stopping service [Tomcat] 
+2024-10-30 17:30:55 [RMI TCP Connection(88)-127.0.0.1] WARN  o.a.c.l.WebappClassLoaderBase                      - The web application [ROOT] appears to have started a thread named [HikariPool-3 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.12/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.12/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.12/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.12/java.lang.Thread.run(Thread.java:842) 
+2024-10-30 17:30:55 [RMI TCP Connection(88)-127.0.0.1] INFO  o.a.c.h.Http11NioProtocol                          - Stopping ProtocolHandler ["http-nio-8080"] 
+2024-10-30 17:30:55 [RMI TCP Connection(88)-127.0.0.1] INFO  o.a.c.h.Http11NioProtocol                          - Destroying ProtocolHandler ["http-nio-8080"] 
+2024-10-30 17:30:55 [RMI TCP Connection(88)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean     - Closing JPA EntityManagerFactory for persistence unit 'default' 
+2024-10-30 17:30:55 [RMI TCP Connection(88)-127.0.0.1] INFO  c.z.h.HikariDataSource                             - HikariPool-3 - Shutdown initiated... 
+2024-10-30 17:30:55 [RMI TCP Connection(88)-127.0.0.1] INFO  c.z.h.HikariDataSource                             - HikariPool-3 - Shutdown completed. 

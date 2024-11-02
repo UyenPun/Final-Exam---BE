@@ -14,25 +14,33 @@ import com.company.repository.IAccountRepository;
 public class AccountServiceImpl extends BaseService implements AccountService {
 
 	@Autowired
-	private IAccountRepository repository;
+	private IAccountRepository accountRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-		Account account = repository.findByUsername(username);
+		Account account = accountRepository.findByUsername(username);
 
 		if (account == null) {
 			throw new UsernameNotFoundException(username);
 		}
 
-		return new User(
-				account.getUsername(), 
-				account.getPassword(), 
+		return new User(account.getUsername(), account.getPassword(),
 				AuthorityUtils.createAuthorityList(account.getRole().toString()));
 	}
 
 	@Override
 	public Account getAccountByUsername(String username) {
-		return repository.findByUsername(username);
+		return accountRepository.findByUsername(username);
+	}
+
+	@Override
+	public boolean isAccountExistsByUsername(String username) {
+		return accountRepository.existsByUsername(username);
+	}
+
+	@Override
+	public boolean isAccountExistsByEmail(String email) {
+		return accountRepository.existsByEmail(email);
 	}
 }

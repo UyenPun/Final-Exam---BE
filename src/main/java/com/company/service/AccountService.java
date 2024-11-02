@@ -6,5 +6,9 @@ import com.company.model.entity.Account;
 
 public interface AccountService extends UserDetailsService {
 
-	public Account getAccountByUsername(String username);
+	Account getAccountByUsername(String username);
+
+	boolean isAccountExistsByUsername(String username);
+
+	boolean isAccountExistsByEmail(String email);
 }
